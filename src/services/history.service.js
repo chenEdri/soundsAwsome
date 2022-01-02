@@ -81,7 +81,8 @@ async function loadHistory() {
 async function addSearch(search) {
   let history = await storageService.query(STORAGE_KEY)
   let { searchList } = history
-  searchList = addToExlusiveArr(searchList, search)
+  // searchList = addToExlusiveArr(searchList, search)
+  searchList.unshift(search)
   await storageService.putObj(STORAGE_KEY, 'searchList', searchList)
 }
 
@@ -92,7 +93,7 @@ async function addSearch(search) {
 async function addVisitedSong(song) {
   let history = await storageService.query(STORAGE_KEY)
   const { visitedSongs } = history
-  visitedSongs.unshift(song)
+  visitedSongs.push(song)
   await storageService.putObj(STORAGE_KEY, 'visitedSongs', visitedSongs)
 }
 

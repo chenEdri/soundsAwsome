@@ -36,14 +36,14 @@ export function historyReducer(state = initialState, action) {
       }
     case 'ADD_SEARCH':
       const _searchList = state.searchList
-      _searchList.unshift(action.search)
+      _searchList.unshift(action.searchList)
     return {
         ...state,
         searchList: _searchList,
       }
     case 'ADD_VISITED_SONGS':
       const _visitedSongs = state.visitedSongs
-      _visitedSongs.unshift(action.song)
+      _visitedSongs.push(action.song)
       return {
         ...state,
         visitedSongs: _visitedSongs,

@@ -17,7 +17,7 @@ export default function UserDashboard() {
   // initialize:
   const [visitPage, setVisitPage] = useState(1)
   const [searchPage, setSearchPage] = useState(1)
-  const { searchList, visitedSongs, lastUserhistory } = useSelector(
+  const { searchList, visitedSongs } = useSelector(
     //@ts-ignore
     (state) => state.historyReducer
   )
@@ -26,7 +26,7 @@ export default function UserDashboard() {
 
   useEffect(() => {
     dispatch(loadHistory())
-  }, [visitPage, searchPage])
+  }, [])
 
   /**
    * @param {String} id

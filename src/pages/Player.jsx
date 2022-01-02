@@ -1,11 +1,14 @@
 //@ts-nocheck
 // necessary core imports:
 import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ReactPlayer from 'react-player/youtube'
 
 //functionality:
-import { youtubeService } from '../../services/youtube.service'
-import { utilService } from '../../services/util.service'
+import { youtubeService } from '../services/youtube.service'
+import { utilService } from '../services/util.service'
+import { eventBusService } from '../services/eventBus.service'
+import { loadSong, saveSongToPlay } from '../store/action/song.action'
 
 // style:
 import ReactLoading from 'react-loading'
@@ -17,7 +20,10 @@ import VolumeMuteIcon from '@material-ui/icons/VolumeMute'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import AllInclusive from '@material-ui/icons/AllInclusive'
 
-export function Player({ song, songs, getSongToPlay }) {
+export function Player() {
+  const { songs } = useSelector((state) => state.songReducer)
+  const song = useSelector((state) => state.songReducer.currSong)
+  let removeEventBus = []
   //player initialize buttons :
   const playerRef = useRef()
   const [isReady, setIsReady] = useState(false)
@@ -28,21 +34,33 @@ export function Player({ song, songs, getSongToPlay }) {
   const [duration, setDuration] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [timePlayed, setTimePlayed] = useState(0)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if (playerRef) {
+    removeEventBus = eventBusService.on('play-song', (song) => {
+      song = { ...song, isPlaying: true }
+      dispatch(saveSongToPlay(song))
+    })
+    if (playerRef && song) {
       song.isPlaying || isKeepListening
         ? setIsPlaying(true)
         : setIsPlaying(false)
       playerRef.current?.seekTo(timePlayed)
     }
+    return () => {
+      removeEventBus = null
+    }
   }, [isSeeking, song, songs])
+
+  const getSongToPlay = (idx) => {
+    dispatch(loadSong(songs[idx].id, true))
+  }
 
   //functions:
   //when the player is ready to be plaed it activate this func
   const onReady = () => setIsReady(true)
 
- // get curr sec and return prefixed to player show
+  // get curr sec and return prefixed to player show
   const showTime = (seconds) => {
     var mins
     var secs
@@ -111,16 +129,19 @@ export function Player({ song, songs, getSongToPlay }) {
   // update the duration of the song after it has been loaded to the player
   const handleDuration = (duration) => setDuration(duration)
 
-  if (!song && !song.title)
-    return <ReactLoading type={'cubes'} color='#a22b44' />
+  const validateSong = () => {
+    return song && song.hasOwnProperty('snippet')
+  }
+
+  if (!validateSong()) return <ReactLoading type={'cubes'} color='#a22b44' />
   const infintClr = isKeepListening ? 'infinite' : ''
   const _title = youtubeService._titleSimplify(song.snippet.title)
   return (
-    <section className="player-youtube youtube-vue">
+    <section className='player-youtube youtube-vue'>
       <React.Fragment>
         <ReactPlayer
           ref={playerRef}
-          hidden="hidden"
+          hidden='hidden'
           className='player player-fragment hidden'
           width='640px'
           height='360px'
@@ -140,7 +161,7 @@ export function Player({ song, songs, getSongToPlay }) {
         <div className='player-left flex'>
           <img src={song.snippet.thumbnails.default.url} alt='#' />
           <div className='overflow-hidden'>
-            <span>{_title}</span>
+            <span>{_title || ''}</span>
           </div>
         </div>
         <div className='player-main'>
@@ -169,38 +190,38 @@ export function Player({ song, songs, getSongToPlay }) {
               <SkipNextIcon />
             </button>
           </div>
-          <div class='durations flex space-between'>
+          <div className='durations flex space-between'>
             {!isReady ? (
               <ReactLoading type={'cubes'} color='#a22b44' />
             ) : (
               <React.Fragment>
                 {/* <div className='song-time flex align-center space-between'> */}
-                  <p>{showTime(timePlayed)}</p>
-                  <input
-                    className='duration-slider'
-                    type='range'
-                    name='played'
-                    min={0}
-                    max={duration}
-                    onChange={handleDurationChange}
-                    onMouseDown={handleSeekMouseDown}
-                    onMouseUp={handleSeekMouseUp}
-                    value={timePlayed}
-                  />
+                <p>{showTime(timePlayed)}</p>
+                <input
+                  className='duration-slider'
+                  type='range'
+                  name='played'
+                  min={0}
+                  max={duration}
+                  onChange={handleDurationChange}
+                  onMouseDown={handleSeekMouseDown}
+                  onMouseUp={handleSeekMouseUp}
+                  value={timePlayed}
+                />
 
-                  {duration && <p>{showTime(duration + 1)}</p>}
+                {duration && <p>{showTime(duration + 1)}</p>}
                 {/* </div> */}
               </React.Fragment>
             )}
           </div>
         </div>
-        <div class='player-right'>
-        <button
-              className={`${infintClr}`}
-              onClick={() => toggleInfinitListening()}
-            >
-              <AllInclusive />
-            </button>
+        <div className='player-right'>
+          <button
+            className={`${infintClr}`}
+            onClick={() => toggleInfinitListening()}
+          >
+            <AllInclusive />
+          </button>
           <button
             // className='player-ctrl-btn flex justify-center align-center'
             title={isMuted ? 'Unmute' : 'Mute'}
@@ -208,7 +229,7 @@ export function Player({ song, songs, getSongToPlay }) {
           >
             {isMuted ? <VolumeMuteIcon /> : <VolumeUpIcon />}
           </button>
-          
+
           <input
             className={`volume-slider ${isMuted ? 'muted' : ''}`}
             type='range'

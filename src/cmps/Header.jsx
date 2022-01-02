@@ -1,11 +1,36 @@
-import { NavLink, withRouter } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-
-export function _Header(props) {
+export function Header(props) {
   const [activeIdx, setActiveIdx] = useState(null)
+  // useScrollPosition.js
+  const [scrollPosition, setScrollPosition] = useState(0)
 
-  const changeActiveIdx = (idx) => setActiveIdx(idx)
+  useEffect(() => {
+    window.addEventListener('scroll', updatePosition)
+    updatePosition()
+    return () => window.removeEventListener('scroll', updatePosition)
+  }, [])
+
+  const updatePosition = () => {
+    setScrollPosition(window.pageYOffset)
+    checkScrollPos(window.pageYOffset)
+  }
+
+  // return scrollPosition
+  const checkScrollPos = (pos) => {
+    if (pos < 450) setActiveIdx(1)
+    else if (pos > 450 && pos < 1000) setActiveIdx(2)
+    else setActiveIdx(3)
+  }
+
+  const changeActiveIdx = (idx, y) => {
+    setActiveIdx(idx)
+    window.scrollTo({
+      behavior: 'smooth',
+      top: y,
+    })
+  }
+
   return (
     <div className='main-header'>
       <div className='logo'>
@@ -21,35 +46,32 @@ export function _Header(props) {
         </a>
       </div>
       <div className='nav'>
-        <NavLink
-          className={activeIdx === 1 ? 'active-idx' : ''}
-          to='/main'
+        <div
+          className={activeIdx === 1 ? 'active-idx cp' : 'cp'}
           onClick={() => {
-            changeActiveIdx(1)
+            changeActiveIdx(1, 80)
           }}
         >
-          Main-Page
-        </NavLink>
-        <NavLink
-          className={activeIdx === 2 ? 'active-idx' : ''}
-          to='/'
+          Search
+        </div>
+        <div
+          className={activeIdx === 2 ? 'active-idx cp' : 'cp'}
           onClick={() => {
-            setActiveIdx(2)
+            changeActiveIdx(2, 450)
           }}
         >
-          Home
-        </NavLink>
-        <NavLink
-          className={activeIdx === 3 ? 'active-idx' : ''}
-          to='/user'
+          player
+        </div>
+        <div
+          className={activeIdx === 3 ? 'active-idx cp' : 'cp'}
           onClick={() => {
-            setActiveIdx(3)
+            changeActiveIdx(3, 1000)
           }}
         >
-          Dashboard
-        </NavLink>
+          History
+        </div>
       </div>
-      <div className="right-nav">
+      <div className='right-nav'>
         <input
           type='checkbox'
           className='custom-checkbox'
@@ -59,5 +81,3 @@ export function _Header(props) {
     </div>
   )
 }
-
-export const Header = connect()(withRouter(_Header))

@@ -71,7 +71,7 @@ function MainApp() {
   //calling the store to load new song with async call to the api
   const onLoadSong = (id) => {
     dispatch(loadSong(id))
-    setIsModalSong(true)
+    setTimeout(()=>setIsModalSong(true),500)
   }
 
   // closing the image modal and sending shows back the search list
@@ -94,7 +94,7 @@ function MainApp() {
       <div className={`main-container ${fadeMain}`}>
         {!isModalSong ? <Search onSetSearch={onSetSearch} /> : ''}
         {!isModalSong && songs && songs.length ? (
-          <div>
+         
             <div className={`${gridView}`}>
               <SongList
                 songs={songsToShow}
@@ -103,7 +103,7 @@ function MainApp() {
                 onLoadSong={onLoadSong}
               />
             </div>
-          </div>
+        
         ) : (
           ''
         )}
