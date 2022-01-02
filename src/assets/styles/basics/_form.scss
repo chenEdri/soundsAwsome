@@ -1,0 +1,100 @@
+input {
+  all: unset;
+  display: revert;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  & label {
+    padding-left: 1em;
+    font: 1em LatoR;
+  }
+  .form-width {
+    width: 80%;
+    align-self: flex-start;
+  }
+  .form-width-color {
+    width: 25%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-self: flex-start;
+    // height: fit-content;
+    border-bottom: none !important;
+  }
+  .color {
+    width: 90%;
+    border: none !important;
+  }
+
+  .form-warning-msg {
+    color: red;
+    font-weight: 500;
+    line-height: 1.2;
+    width: fit-content;
+  }
+  
+  & input {
+    font-family: LatoR;
+    margin: 10px;
+    padding: 6px 10px 6px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+    box-shadow: 0px 7px 24px 2px rgba(0, 0, 0, 0.75);
+    font-size: rem(21px);
+    height: 2em;
+    &:focus {
+      outline: none;
+    }
+  }
+  
+}
+
+.custom-checkbox {
+  all: unset;
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: rem(38px);
+  height: rem(20px);
+  padding: rem(2px);
+  border-radius: rem(10px);
+  background-color: rgb(var(--mistyRose));
+  transition: 0.2s;
+  margin-right: rem(15px);
+  &::before {
+    content: '';
+    display: block;
+    box-sizing: border-box;
+    transition: 0.2s;
+    width: rem(16px);
+    height: rem(16px);
+    border-radius: 50%;
+    border: solid rem(4px) rgb(var(--white));
+    background-color: rgb(var(--rouge));
+  }
+  &:checked {
+    background-color: rgb(var(--azureishWhite));
+    &::before {
+      background-color: rgb(var(--caribbeanGreen));
+      transform: translateX(rem(18px));
+    }
+  }
+  &:hover,
+  &:focus {
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+  }
+}
+
+:root {
+  --white: 255, 255, 255; /* #ffffff*/
+  --mistyRose: 189, 176, 247; /* #bdb0f7 */
+  --rouge: 87, 79, 125; /* #574f7d*/
+  --azureishWhite: 223, 247, 237; /* #DFF7ED */
+  --caribbeanGreen: 15, 202, 128; /* #0FCA80 */
+}

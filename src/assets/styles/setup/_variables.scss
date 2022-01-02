@@ -1,0 +1,47 @@
+// Colors theme:
+$clr1: #ce2e6c;
+$clr2: #4f3a65;
+$clr3: #574f7d;
+$clr4: #95adbe;
+$clr5: #dff0ea;
+
+//Generic: 
+$w: #fff;
+$bl:#222222;
+$mid-blue: #244564;
+$li-blue: #3498db;
+$dark-grey: #343434;
+$li-grey: #9595a6;
+$bl-blue: #212529;
+
+//backgrounds: 
+$bgc-dark: #282c34;
+$bgc-blue: #2c3e50;
+$bgc-light: #f9fcffdc;
+
+
+//alert-colors:
+$positive: #6d9f38;
+$negetive: #ca481d;
+
+// CONSTANT FIXED CMPS SIZE
+$side-nav: 15.2em;
+$top-bar: 3.75em;
+
+
+// LAYOUT
+$layoutPadding: 20px;
+
+// LAYOUT BREAKPOINTS
+$break-narrow: 460px;
+$break-normal: 768px;
+$break-wide: 1080px;
+
+$padded-break-narrow: $break-narrow + $layoutPadding * 2;
+$padded-break-normal: $break-normal + $layoutPadding * 2;
+$padded-break-wide: $break-wide + $layoutPadding * 2;
+
+// Breakpoints
+$mobile-breakpoint: 460px;
+$narrow-breakpoint: 768px;
+$normal-breakpoint: 960px;

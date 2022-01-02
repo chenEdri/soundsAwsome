@@ -1,0 +1,39 @@
+.App-logo {
+  height: 25vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @include for-mobile-layout {
+    .App-logo{
+      animation: App-logo-mobile infinite 15s linear infinite;
+    }
+  }
+}
+
+.App-header {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+//home animation: 
+
+@keyframes App-logo {
+  0% {
+    transform: translate(100px, 0%);
+  }
+  50% {
+    transform: translate(-100px, 0%);
+  }
+  100% {
+    transform: translate(100px, 0%);
+  }
+}

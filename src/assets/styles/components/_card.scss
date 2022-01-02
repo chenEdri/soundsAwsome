@@ -1,0 +1,22 @@
+.card-container {
+  border: 0.8px solid rgba(73, 71, 71, 0.226);
+  border-radius: 7px;
+  margin-top: 80px;
+  height: 300px;
+  .card-img {
+    margin-top: 15px;
+    align-self: center;
+    width: fit-content;
+    display: flex;
+    justify-self: start;
+    overflow: hidden;
+    img {
+      padding: 10px;
+      height: 100px;
+      width: 100px;
+    }
+  }
+  .card-lng {
+    margin: 15px 20px 0px 20px;
+  }
+}

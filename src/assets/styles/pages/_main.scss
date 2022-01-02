@@ -1,0 +1,25 @@
+.fade-out {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s linear;
+}
+
+.fade-in {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1.5s linear;
+}
+.btn-group {
+  display: flex;
+  align-items: center;
+  // gap: 1em;
+  margin:  2em 0;
+  justify-content: space-between;
+  .btn-view {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 1em;
+    justify-content: flex-end;
+  }
+}

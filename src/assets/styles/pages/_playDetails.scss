@@ -1,0 +1,42 @@
+.play-details {
+  .title {
+    margin: 20px;
+    font-size: 2.5rem;
+    letter-spacing: 1.4px;
+  }
+  & section {
+    position: relative;
+    padding: 20px 0 20px 0;
+    width: 80%;
+    margin: 0 auto;
+  }
+  & section:not(:last-child) {
+    border-bottom: 1px solid $li-grey;
+  }
+  .more{
+      background-color: #545353bf;
+      border-radius: 7px;
+      height: fit-content;
+      width:fit-content;
+      align-self: center;
+  }
+  img {
+    aspect-ratio: 16/9;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .info {
+    min-width: 3em;
+    position: relative;
+    
+    h4 {
+      // border-bottom: 1px solid $li-grey;
+      display: grid;
+      place-content: center;
+    }
+    h5 {
+      cursor: pointer;
+      text-align: center;
+    }
+  }
+}

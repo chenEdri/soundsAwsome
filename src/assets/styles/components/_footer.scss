@@ -1,0 +1,36 @@
+.footer-container {
+  text-align: center;
+  position: relative;
+  min-height: 20vh;
+  padding: 1.4em 0em 2em 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: 0.7px solid $mid-blue;
+
+  .foot-col {
+    & p {
+      display: block;
+    }
+    .head {
+      color: $li-grey;
+      font-weight: bolder;
+    }
+    &a {
+      font-size: 0.8rem;
+      color: $dark-grey;
+    }
+    &a:hover{
+      color: $mid-blue;
+    }
+    .icon{
+      gap:10px;
+      padding-top: em(5px);
+    }
+    .foot-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:5px;
+    }
+  }
+}

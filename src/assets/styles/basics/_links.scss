@@ -1,0 +1,14 @@
+.li, li{
+    list-style: none outside none; 
+}
+
+.link, a{
+    all:unset;
+    cursor: pointer;
+    text-decoration-line: none;
+    font-weight: 500;
+    &:hover{
+        color:$clr4;
+        transition: 0.7s;
+    }
+}

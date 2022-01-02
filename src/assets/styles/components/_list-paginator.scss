@@ -1,0 +1,15 @@
+.paginator-container {
+  color: $w;
+  font-size: 1.2em;
+  padding: 0 10px 1em 10px;
+  align-items: flex-end;
+  .page-buttons {
+    margin: 0 10px 0 10px;
+    button {
+      all: unset;
+      display: revert;
+      cursor: pointer;
+    }
+  }
+}
+

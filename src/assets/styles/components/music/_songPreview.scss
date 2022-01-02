@@ -1,0 +1,25 @@
+.song-pick-result {
+  margin: 0px 10px;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  transition: 0.3s;
+  background-color: #ffffff12;
+  margin-bottom: 5px;
+  img {
+    width: 15%;
+    height: 100%;
+    padding: 5px;
+    margin-right: 8px;
+  }
+  &:hover {
+    color: #cdcdcdfc;
+    background-color: #6e6d6d6e;
+  }
+  .idx {
+    padding: 0px 1em 0px 1em;
+    width: em(55px);
+    overflow: ellipsis;
+  }
+}
